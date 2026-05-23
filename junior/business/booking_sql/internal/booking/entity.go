@@ -3,7 +3,7 @@ package booking
 import "time"
 
 type Booking struct {
-	UserID   int
+	UserName string
 	RoomName string
 	StartAt  time.Time
 	EndAt    time.Time

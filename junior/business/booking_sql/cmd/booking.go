@@ -8,8 +8,12 @@ import (
 	"context"
 	"log"
 
+	validatorx "alice088/booking_sql/internal/validator"
+
 	"github.com/caarlos0/env/v11"
 	"github.com/gin-gonic/gin"
+	"github.com/gin-gonic/gin/binding"
+	"github.com/go-playground/validator/v10"
 	"github.com/jackc/pgx/v5"
 	"github.com/joho/godotenv"
 )
@@ -37,13 +41,16 @@ func main() {
 
 	r := gin.New()
 	r.Use(gin.Logger())
+	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+		v.RegisterValidation("bookabledate", validatorx.BookableDate)
+	}
 
 	v1 := r.Group("api/v1")
 
 	bookingRepo := postgres.NewBookingRepository(conn)
 	bookingService := booking.NewService(bookingRepo)
 	bookingHandler := booking.NewHandler(bookingService)
-	
+
 	bookingRoute := v1.Group("/booking")
 	{
 		bookingRoute.POST("/", bookingHandler.Book)
