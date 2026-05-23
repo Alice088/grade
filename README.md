@@ -1,6 +1,6 @@
 # Grade Now: Junior
 
-A collection of tasks to determine and improve your current grade.
+A collection of tasks to determine and improve my current grade.
 
 ---
 
