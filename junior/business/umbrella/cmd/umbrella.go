@@ -20,7 +20,7 @@ func main() {
 	)
 
 	timeRoute := r.Group("/time")
-	timeRoute.GET("/since", timeHandler.Since()).Use(middleware.ReadButtonDetector())
+	timeRoute.GET("/since", middleware.ReadButtonDetector(), timeHandler.Since())
 
 	r.Run(":8080")
 }
