@@ -18,5 +18,11 @@ func NewBookingRepository(conn *pgx.Conn) booking.BookingRepository {
 }
 
 func (r *PostgresRepository) Book(ctx context.Context, booking booking.Booking) (int, error) {
+	tx, err := r.Conn.BeginTx(ctx, pgx.TxOptions{})
+	if err != nil {
+		return 0, nil
+	}
+
+	
 	return 0, nil
 }
